@@ -1,0 +1,29 @@
+package com.example.employee_service.repository;
+
+import com.example.employee_service.model.Employee;
+import org.springframework.stereotype.Repository;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Repository
+public class EmployeeRepository {
+    List<Employee> employees = new ArrayList<>();
+
+    public Employee addEmployee(Employee employee){
+        employees.add(employee);
+        return employee;
+    }
+
+    public Employee findById(Long id){
+        return employees.stream().filter(employee -> employee.id().equals(id)).findFirst().orElseThrow();
+    }
+
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public List<Employee> findByDepartment(Long departmentId) {
+        return employees.stream().filter(employee -> employee.departmentId().equals(departmentId)).toList();
+    }
+}
